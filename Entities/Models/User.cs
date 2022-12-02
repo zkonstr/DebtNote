@@ -18,7 +18,7 @@ namespace Entities.Models
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Email is a required field.")]
-        [MaxLength(250, ErrorMessage = "Maximum length for the Name is 250 characters.")]
+        [MaxLength(250, ErrorMessage = "Maximum length for the Email is 250 characters.")]
         public string Email { get; set; }
 
         [Required]
@@ -26,6 +26,6 @@ namespace Entities.Models
 
         public string? Address { get; set; }
         
-        public DateOnly? Birthday { get; set; }
+        public DateTime? Birthday { get; set; }
     }
 }

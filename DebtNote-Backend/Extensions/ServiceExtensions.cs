@@ -1,5 +1,7 @@
 ﻿using Contracts;
+using Repository;
 using LoggerService;
+using Microsoft.EntityFrameworkCore;
 
 namespace DebtNote_Backend.Extensions
 {
@@ -17,6 +19,5 @@ namespace DebtNote_Backend.Extensions
             services.Configure<IISOptions>(options => {});
         public static void ConfigureLoggerService(this IServiceCollection services) =>
             services.AddScoped<ILoggerManager, LoggerManager>();
-
     }
 }

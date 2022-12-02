@@ -14,10 +14,10 @@ namespace Entities.Models
 
         [ForeignKey(nameof(Payment))]
         public Guid PaymentId { get; set; }
-        public Payment Payment { get; set; }
+        public Payment? Payment { get; set; }
 
         [ForeignKey(nameof(Sku))]
         public Guid SkuId { get; set; }
-        public Sku Sku { get; set; }
+        public Sku? Sku { get; set; }
     }
 }
