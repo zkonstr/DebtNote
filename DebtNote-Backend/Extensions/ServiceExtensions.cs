@@ -19,5 +19,7 @@ namespace DebtNote_Backend.Extensions
             services.Configure<IISOptions>(options => {});
         public static void ConfigureLoggerService(this IServiceCollection services) =>
             services.AddScoped<ILoggerManager, LoggerManager>();
+        public static void ConfigureRepositoryManager(this IServiceCollection services) =>
+            services.AddScoped<IRepositoryManager, RepositoryManager>();
     }
 }
