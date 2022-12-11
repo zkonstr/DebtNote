@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Service;
 using Service.Contracts;
 
-namespace DebtNote_Backend.Extensions
+namespace DebtNote.Extensions
 {
     public static class ServiceExtensions
     {

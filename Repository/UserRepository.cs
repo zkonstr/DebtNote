@@ -14,5 +14,8 @@ namespace Repository
         : base(repositoryContext)
         {
         }
+
+        public IEnumerable<User> GetAllUsers(bool trackChanges) => FindAll(trackChanges).OrderBy(c => c.Name).ToList();
+
     }
 }

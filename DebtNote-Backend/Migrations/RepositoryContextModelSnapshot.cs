@@ -8,7 +8,7 @@ using Repository;
 
 #nullable disable
 
-namespace DebtNoteBackend.Migrations
+namespace DebtNote.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
     partial class RepositoryContextModelSnapshot : ModelSnapshot

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Repository;
 
-namespace DebtNote_Backend.ContextFactory
+namespace DebtNote.ContextFactory
 {
     public class RepositoryContextFactory : IDesignTimeDbContextFactory<RepositoryContext>
     {

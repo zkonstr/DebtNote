@@ -9,7 +9,7 @@ using Repository;
 
 #nullable disable
 
-namespace DebtNoteBackend.Migrations
+namespace DebtNote.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
     [Migration("20221202131703_DatabaseCreation")]

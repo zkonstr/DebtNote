@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace DebtNoteBackend.Migrations
+namespace DebtNote.Migrations
 {
     /// <inheritdoc />
     public partial class DatabaseCreation : Migration
