@@ -1,4 +1,5 @@
-﻿using Contracts;
+﻿using AutoMapper;
+using Contracts;
 using Service.Contracts;
 using System;
 using System.Collections.Generic;
@@ -16,18 +17,18 @@ namespace Service
         private readonly Lazy<IPaymentService> _paymentService;
         private readonly Lazy<IPaymentItemService> _paymentItemService;
         private readonly Lazy<ISkuService> _skuService;
-        public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager logger)
+        public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager logger, IMapper mapper)
         {
             _userService = new Lazy<IUserService>(() => 
-            new UserService(repositoryManager, logger));
+            new UserService(repositoryManager, logger, mapper));
             _userItemReferenceService = new Lazy<IUserItemReferenceService>(() =>
-            new UserItemReferenceService(repositoryManager, logger));
+            new UserItemReferenceService(repositoryManager, logger, mapper));
             _paymentService = new Lazy<IPaymentService>(() => 
-            new PaymentService(repositoryManager, logger));
+            new PaymentService(repositoryManager, logger, mapper));
             _paymentItemService = new Lazy<IPaymentItemService> (() =>
-            new PaymentItemService(repositoryManager, logger));
+            new PaymentItemService(repositoryManager, logger, mapper));
             _skuService = new Lazy<ISkuService> (() => 
-            new SkuService(repositoryManager, logger));
+            new SkuService(repositoryManager, logger, mapper));
         }
 
         public IPaymentItemService PaymentItemService => _paymentItemService.Value;

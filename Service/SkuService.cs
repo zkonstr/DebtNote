@@ -1,4 +1,5 @@
-﻿using Contracts;
+﻿using AutoMapper;
+using Contracts;
 using Entities.Models;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -14,11 +15,13 @@ namespace Service
     {
         private readonly IRepositoryManager _repository;
         private readonly ILoggerManager _logger;
+        private readonly IMapper _mapper;
 
-        public SkuService(IRepositoryManager repository, ILoggerManager logger)
+        public SkuService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
         {
             _repository = repository;
             _logger = logger;
+            _mapper = mapper;
         }
 
         public IEnumerable<SkuDTO> GetAllSkus(bool trackChanges)
@@ -27,8 +30,7 @@ namespace Service
             {
                 var skus =
                 _repository.Sku.GetAllSkus(trackChanges);
-                var skusDto = skus.Select(c =>
-                     new SkuDTO(c.Id,c.Name,c.Cost )).ToList();
+                var skusDto = _mapper.Map<IEnumerable<SkuDTO>>(skus);
                 return skusDto;
             }
             catch (Exception ex)

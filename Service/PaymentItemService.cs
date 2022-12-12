@@ -1,4 +1,5 @@
-﻿using Contracts;
+﻿using AutoMapper;
+using Contracts;
 using Entities.Models;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -14,11 +15,13 @@ namespace Service
     {
         private readonly IRepositoryManager _repository;
         private readonly ILoggerManager _logger;
+        private readonly IMapper _mapper;
 
-        public PaymentItemService(IRepositoryManager repository, ILoggerManager logger)
+        public PaymentItemService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
         {
             _repository = repository;
             _logger = logger;
+            _mapper = mapper;
         }
 
         public IEnumerable<PaymentItemDTO> GetAllPaymentItems(bool trackChanges)
@@ -27,8 +30,7 @@ namespace Service
             {
                 var paymentItems =
                 _repository.PaymentItem.GetAllPaymentItems(trackChanges);
-                var paymentItemsDto = paymentItems.Select(c =>
-                     new PaymentItemDTO(c.Id,c.PaymentId,c.SkuId)).ToList();
+                var paymentItemsDto = _mapper.Map<IEnumerable<PaymentItemDTO>>(paymentItems);
                 return paymentItemsDto;
             }
             catch (Exception ex)

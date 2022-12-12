@@ -1,4 +1,5 @@
-﻿using Contracts;
+﻿using AutoMapper;
+using Contracts;
 using Entities.Models;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -16,11 +17,13 @@ namespace Service
 
         private readonly IRepositoryManager _repository;
         private readonly ILoggerManager _logger;
+        private readonly IMapper _mapper;
 
-        public UserService(IRepositoryManager repository, ILoggerManager logger)
+        public UserService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
         {
             _repository = repository;
             _logger = logger;
+            _mapper = mapper;
         }
 
         public IEnumerable<UserDTO> GetAllUsers(bool trackChanges)
@@ -28,8 +31,8 @@ namespace Service
             try
             {
                 var users = _repository.User.GetAllUsers(trackChanges);
-                var usersDto = users.Select(c =>
-                    new UserDTO(c.Id, c.Name, c.Email, c.Balance, c.Address, c.Birthday ?? null)).ToList();
+                var usersDto = _mapper.Map<IEnumerable<UserDTO>>(users);
+
                 return usersDto;
             }
             catch (Exception ex)
