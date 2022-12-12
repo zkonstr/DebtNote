@@ -26,18 +26,16 @@ namespace Service
 
         public IEnumerable<SkuDTO> GetAllSkus(bool trackChanges)
         {
-            try
-            {
-                var skus =
-                _repository.Sku.GetAllSkus(trackChanges);
-                var skusDto = _mapper.Map<IEnumerable<SkuDTO>>(skus);
-                return skusDto;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Something went wrong in the {nameof(GetAllSkus)} service method {ex}");
-                throw;
-            }
+            var skus = _repository.Sku.GetAllSkus(trackChanges);
+            var skusDto = _mapper.Map<IEnumerable<SkuDTO>>(skus);
+            return skusDto;
+        }
+        public SkuDTO GetSku(Guid id, bool trackChanges)
+        {
+            var sku = _repository.Sku.GetSku(id, trackChanges);
+            //Check if the user is null
+            var skuDto = _mapper.Map<SkuDTO>(sku);
+            return skuDto;
         }
     }
 }

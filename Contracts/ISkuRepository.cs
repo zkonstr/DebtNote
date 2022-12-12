@@ -10,5 +10,6 @@ namespace Contracts
     public interface ISkuRepository
     {
         IEnumerable<Sku> GetAllSkus(bool trackChanges);
+        Sku GetSku(Guid Id, bool trackChanges);
     }
 }

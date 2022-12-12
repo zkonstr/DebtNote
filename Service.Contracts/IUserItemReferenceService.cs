@@ -10,5 +10,6 @@ namespace Service.Contracts
     public interface IUserItemReferenceService
     {
         IEnumerable<UserItemReferenceDTO> GetAllUserItemReferences(bool trackChanges);
+        UserItemReferenceDTO GetUserItemReference(Guid Id, bool trackChanges);
     }
 }

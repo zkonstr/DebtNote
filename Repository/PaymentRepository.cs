@@ -17,5 +17,9 @@ namespace Repository
         }
         public IEnumerable<Payment> GetAllPayments(bool trackChanges) => 
             FindAll(trackChanges).OrderBy(c => c.Id).ToList();
+
+        public Payment GetPayment(Guid Id, bool trackChanges) =>
+            FindByCondition(c => c.Id.Equals(Id), trackChanges)
+                .SingleOrDefault();
     }
 }

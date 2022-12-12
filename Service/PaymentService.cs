@@ -26,18 +26,17 @@ namespace Service
 
         public IEnumerable<PaymentDTO> GetAllPayments(bool trackChanges)
         {
-            try
-            {
-                var payments =
-                _repository.Payment.GetAllPayments(trackChanges);
-                var paymentsDto = _mapper.Map<IEnumerable<PaymentDTO>>(payments);
-                return paymentsDto;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Something went wrong in the { nameof(GetAllPayments)} service method { ex}");
-            throw;
-            }
+            var payments = _repository.Payment.GetAllPayments(trackChanges);
+            var paymentsDto = _mapper.Map<IEnumerable<PaymentDTO>>(payments);
+            return paymentsDto;
+        }
+
+        public PaymentDTO GetPayment(Guid id, bool trackChanges)
+        {
+            var payment = _repository.Payment.GetPayment(id, trackChanges);
+            //Check if the user is null
+            var paymentDto = _mapper.Map<PaymentDTO>(payment);
+            return paymentDto;
         }
     }
 }

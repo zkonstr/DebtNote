@@ -26,18 +26,17 @@ namespace Service
 
         public IEnumerable<UserItemReferenceDTO> GetAllUserItemReferences(bool trackChanges)
         {
-            try
-            {
-                var userItemReferences =
-                _repository.UserItemReference.GetAllUserItemReferences(trackChanges);
-                var userItemReferencesDto = _mapper.Map<IEnumerable<UserItemReferenceDTO>>(userItemReferences);
-                return userItemReferencesDto;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Something went wrong in the {nameof(GetAllUserItemReferences)} service method {ex}");
-                throw;
-            }
+            var userItemReferences = _repository.UserItemReference.GetAllUserItemReferences(trackChanges);
+            var userItemReferencesDto = _mapper.Map<IEnumerable<UserItemReferenceDTO>>(userItemReferences);
+            return userItemReferencesDto;
+        }
+
+        public UserItemReferenceDTO GetUserItemReference(Guid id, bool trackChanges)
+        {
+            var userItemReference = _repository.UserItemReference.GetUserItemReference(id, trackChanges);
+            //Check if the user is null
+            var userItemReferenceDto = _mapper.Map<UserItemReferenceDTO>(userItemReference);
+            return userItemReferenceDto;
         }
     }
 }

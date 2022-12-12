@@ -28,18 +28,17 @@ namespace Service
 
         public IEnumerable<UserDTO> GetAllUsers(bool trackChanges)
         {
-            try
-            {
-                var users = _repository.User.GetAllUsers(trackChanges);
-                var usersDto = _mapper.Map<IEnumerable<UserDTO>>(users);
+            var users = _repository.User.GetAllUsers(trackChanges);
+            var usersDto = _mapper.Map<IEnumerable<UserDTO>>(users);
+            return usersDto;
+        }
 
-                return usersDto;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Something went wrong in the { nameof(GetAllUsers)} service method { ex}");
-            throw;
-            }
+        public UserDTO GetUser(Guid id, bool trackChanges)
+        {
+            var user = _repository.User.GetUser(id, trackChanges);
+            //Check if the user is null
+            var userDto = _mapper.Map<UserDTO>(user);
+            return userDto;
         }
     }
 }

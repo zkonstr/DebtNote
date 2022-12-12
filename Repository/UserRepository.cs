@@ -2,6 +2,7 @@
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,10 @@ namespace Repository
         }
 
         public IEnumerable<User> GetAllUsers(bool trackChanges) => FindAll(trackChanges).OrderBy(c => c.Name).ToList();
+
+        public User GetUser(Guid Id, bool trackChanges) =>
+            FindByCondition(c => c.Id.Equals(Id), trackChanges)
+                .SingleOrDefault();
 
     }
 }

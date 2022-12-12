@@ -17,16 +17,15 @@ namespace Presentation.Controllers
         [HttpGet]
         public IActionResult GetUsers()
         {
-            try
-            {
-                var users =
-                _service.UserService.GetAllUsers(trackChanges: false);
-                return Ok(users);
-            }
-            catch
-            {
-                return StatusCode(500, "Internal server error");
-            }
+             var users = _service.UserService.GetAllUsers(trackChanges: false);
+            return Ok(users);
         }
+        [HttpGet("{id:guid}")]
+        public IActionResult GetUser(Guid id)
+        {
+            var user = _service.UserService.GetUser(id, trackChanges: false);
+            return Ok(user);
+        }
+
     }
 }

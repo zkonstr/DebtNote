@@ -16,5 +16,9 @@ namespace Repository
         }
         public IEnumerable<Sku> GetAllSkus(bool trackChanges) =>
             FindAll(trackChanges).OrderBy(c => c.Name).ToList();
+
+        public Sku GetSku(Guid Id, bool trackChanges) =>
+            FindByCondition(c => c.Id.Equals(Id), trackChanges)
+                .SingleOrDefault();
     }
 }

@@ -10,5 +10,6 @@ namespace Service.Contracts
     public interface IUserService
     {
         IEnumerable<UserDTO> GetAllUsers(bool trackChanges);
+        UserDTO GetUser(Guid Id, bool trackChanges);
     }
 }

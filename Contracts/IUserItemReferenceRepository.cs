@@ -10,5 +10,6 @@ namespace Contracts
     public interface IUserItemReferenceRepository
     {
         IEnumerable<UserItemReference> GetAllUserItemReferences(bool trackChanges);
+        UserItemReference GetUserItemReference(Guid Id, bool trackChanges);
     }
 }

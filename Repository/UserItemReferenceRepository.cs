@@ -16,5 +16,9 @@ namespace Repository
         }
         public IEnumerable<UserItemReference> GetAllUserItemReferences(bool trackChanges) => 
             FindAll(trackChanges).OrderBy(c => c.Id).ToList();
+
+        public UserItemReference GetUserItemReference(Guid Id, bool trackChanges) =>
+            FindByCondition(c => c.Id.Equals(Id), trackChanges)
+                .SingleOrDefault();
     }
 }

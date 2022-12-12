@@ -17,16 +17,14 @@ namespace Presentation.Controllers
         [HttpGet]
         public IActionResult GetPayments()
         {
-            try
-            {
-                var payments =
-                _service.PaymentService.GetAllPayments(trackChanges: false);
-                return Ok(payments);
-            }
-            catch
-            {
-                return StatusCode(500, "Internal server error");
-            }
+            var payments = _service.PaymentService.GetAllPayments(trackChanges: false);
+            return Ok(payments);
+        }
+        [HttpGet("{id:guid}")]
+        public IActionResult GetPayment(Guid id)
+        {
+            var payment = _service.PaymentService.GetPayment(id, trackChanges: false);
+            return Ok(payment);
         }
     }
 }

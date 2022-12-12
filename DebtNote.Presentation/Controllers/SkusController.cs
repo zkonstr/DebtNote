@@ -17,16 +17,14 @@ namespace Presentation.Controllers
         [HttpGet]
         public IActionResult GetSkus()
         {
-            try
-            {
-                var users =
-                _service.SkuService.GetAllSkus(trackChanges: false);
-                return Ok(users);
-            }
-            catch
-            {
-                return StatusCode(500, "Internal server error");
-            }
+            var skus = _service.SkuService.GetAllSkus(trackChanges: false);
+            return Ok(skus);
+        }
+        [HttpGet("{id:guid}")]
+        public IActionResult GetSku(Guid id)
+        {
+            var sku = _service.SkuService.GetSku(id, trackChanges: false);
+            return Ok(sku);
         }
     }
 }

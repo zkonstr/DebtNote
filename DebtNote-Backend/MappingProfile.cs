@@ -3,7 +3,7 @@ using Entities.Models;
 using Shared.DataTransferObjects;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
-namespace DebtNote_Backend
+namespace DebtNote
 {
     public class MappingProfile : Profile
     {

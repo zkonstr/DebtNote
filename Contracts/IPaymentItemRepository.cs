@@ -10,5 +10,6 @@ namespace Contracts
     public interface IPaymentItemRepository
     {
         IEnumerable<PaymentItem> GetAllPaymentItems(bool trackChanges);
+        PaymentItem GetPaymentItem(Guid Id, bool trackChanges);
     }
 }

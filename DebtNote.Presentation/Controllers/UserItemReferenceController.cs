@@ -17,16 +17,14 @@ namespace Presentation.Controllers
         [HttpGet]
         public IActionResult GetUserItemReferences()
         {
-            try
-            {
-                var users =
-                _service.UserItemReferenceService.GetAllUserItemReferences(trackChanges: false);
-                return Ok(users);
-            }
-            catch
-            {
-                return StatusCode(500, "Internal server error");
-            }
+            var users = _service.UserItemReferenceService.GetAllUserItemReferences(trackChanges: false);
+            return Ok(users);
+        }
+        [HttpGet("{id:guid}")]
+        public IActionResult GetUserItemReference(Guid id)
+        {
+            var userItemReference = _service.UserItemReferenceService.GetUserItemReference(id, trackChanges: false);
+            return Ok(userItemReference);
         }
     }
 }
