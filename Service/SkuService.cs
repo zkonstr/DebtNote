@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contracts;
+using Entities.Exceptions;
 using Entities.Models;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -33,7 +34,8 @@ namespace Service
         public SkuDTO GetSku(Guid id, bool trackChanges)
         {
             var sku = _repository.Sku.GetSku(id, trackChanges);
-            //Check if the user is null
+            if (sku is null)
+                throw new SkuNotFoundException(id);
             var skuDto = _mapper.Map<SkuDTO>(sku);
             return skuDto;
         }

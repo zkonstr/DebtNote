@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contracts;
+using Entities.Exceptions;
 using Entities.Models;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Service
 {
@@ -36,7 +38,8 @@ namespace Service
         public UserDTO GetUser(Guid id, bool trackChanges)
         {
             var user = _repository.User.GetUser(id, trackChanges);
-            //Check if the user is null
+            if (user is null)
+                throw new UserNotFoundException(id);
             var userDto = _mapper.Map<UserDTO>(user);
             return userDto;
         }

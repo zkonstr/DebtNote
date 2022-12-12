@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Presentation.Controllers
 {
-    [Route("api/payment-items")]
+    [Route("api/payments/{paymentId}/payment-items")]
     [ApiController]
     public class PaymentItemsController : ControllerBase
     {

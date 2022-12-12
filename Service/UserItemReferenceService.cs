@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contracts;
+using Entities.Exceptions;
 using Entities.Models;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -34,7 +35,8 @@ namespace Service
         public UserItemReferenceDTO GetUserItemReference(Guid id, bool trackChanges)
         {
             var userItemReference = _repository.UserItemReference.GetUserItemReference(id, trackChanges);
-            //Check if the user is null
+            if (userItemReference is null)
+                throw new UserItemReferenceNotFoundException(id);
             var userItemReferenceDto = _mapper.Map<UserItemReferenceDTO>(userItemReference);
             return userItemReferenceDto;
         }

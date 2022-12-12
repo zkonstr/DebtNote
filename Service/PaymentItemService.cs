@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contracts;
+using Entities.Exceptions;
 using Entities.Models;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -36,7 +37,8 @@ namespace Service
         public PaymentItemDTO GetPaymentItem(Guid id, bool trackChanges)
         {
             var paymentItem = _repository.PaymentItem.GetPaymentItem(id, trackChanges);
-            //Check if the user is null
+            if (paymentItem is null)
+                throw new PaymentItemNotFoundException(id);
             var paymentItemDto = _mapper.Map<PaymentItemDTO>(paymentItem);
             return paymentItemDto;
         }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Presentation.Controllers
 {
-    [Route("api/user-item-references")]
+    [Route("api/users/{commiterId}/user-item-references")]
     [ApiController]
     public class UsersItemReferenceController : ControllerBase
     {
