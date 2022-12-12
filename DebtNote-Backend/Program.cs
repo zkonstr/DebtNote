@@ -79,7 +79,8 @@ app.UseAuthorization();
 //    Console.WriteLine($"Writing the response to the client in the Run method");
 //    await context.Response.WriteAsync("Hello from the middleware component.");
 //});
-app.Run();
 app.MapControllers();
+app.Run();
+
 
 

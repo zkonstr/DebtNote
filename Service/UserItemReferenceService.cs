@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities.Models;
 using Service.Contracts;
+using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,13 +21,15 @@ namespace Service
             _logger = logger;
         }
 
-        public IEnumerable<UserItemReference> GetAllUserItemReferences(bool trackChanges)
+        public IEnumerable<UserItemReferenceDTO> GetAllUserItemReferences(bool trackChanges)
         {
             try
             {
                 var userItemReferences =
                 _repository.UserItemReference.GetAllUserItemReferences(trackChanges);
-                return userItemReferences;
+                var userItemReferencesDto = userItemReferences.Select(c =>
+                     new UserItemReferenceDTO(c.Id,c.PaymentItemId,c.CommiterId,c.RecepientId)).ToList();
+                return userItemReferencesDto;
             }
             catch (Exception ex)
             {

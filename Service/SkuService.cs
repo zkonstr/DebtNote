@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities.Models;
 using Service.Contracts;
+using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,13 +21,15 @@ namespace Service
             _logger = logger;
         }
 
-        public IEnumerable<Sku> GetAllSkus(bool trackChanges)
+        public IEnumerable<SkuDTO> GetAllSkus(bool trackChanges)
         {
             try
             {
                 var skus =
                 _repository.Sku.GetAllSkus(trackChanges);
-                return skus;
+                var skusDto = skus.Select(c =>
+                     new SkuDTO(c.Id,c.Name,c.Cost )).ToList();
+                return skusDto;
             }
             catch (Exception ex)
             {

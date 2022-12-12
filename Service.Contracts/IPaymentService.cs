@@ -1,4 +1,4 @@
-﻿using Entities.Models;
+﻿using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,6 @@ namespace Service.Contracts
 {
     public interface IPaymentService
     {
-        IEnumerable<Payment> GetAllPayments(bool trackChanges);
+        IEnumerable<PaymentDTO> GetAllPayments(bool trackChanges);
     }
 }

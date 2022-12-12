@@ -14,7 +14,7 @@ namespace DebtNote.ContextFactory
             .Build();
             var builder = new DbContextOptionsBuilder<RepositoryContext>()
             .UseSqlServer(configuration.GetConnectionString("sqlConnection"),
-                b => b.MigrationsAssembly("DebtNote-Backend"));
+                b => b.MigrationsAssembly("DebtNote"));
 
             return new RepositoryContext(builder.Options);
         }

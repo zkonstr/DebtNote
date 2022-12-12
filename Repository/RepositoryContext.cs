@@ -1,5 +1,6 @@
 ﻿using Entities.Models;
 using Microsoft.EntityFrameworkCore;
+using Repository.Configuration;
 
 namespace Repository
 {
@@ -16,6 +17,7 @@ namespace Repository
         public DbSet<UserItemReference>? UserItemReferences { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.Entity<UserItemReference>()
                 .HasOne(c => c.Commiter)
                 .WithMany()
