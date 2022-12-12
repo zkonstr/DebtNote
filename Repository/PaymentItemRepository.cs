@@ -15,5 +15,7 @@ namespace Repository
         : base(repositoryContext)
         {
         }
+        public IEnumerable<PaymentItem> GetAllPaymentItems(bool trackChanges) =>
+            FindAll(trackChanges).OrderBy(c => c.Id).ToList();
     }
 }

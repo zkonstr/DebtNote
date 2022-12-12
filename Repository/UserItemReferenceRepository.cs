@@ -14,5 +14,7 @@ namespace Repository
         : base(repositoryContext)
         {
         }
+        public IEnumerable<UserItemReference> GetAllUserItemReferences(bool trackChanges) => 
+            FindAll(trackChanges).OrderBy(c => c.Id).ToList();
     }
 }

@@ -14,5 +14,7 @@ namespace Repository
         : base(repositoryContext)
         {
         }
+        public IEnumerable<Sku> GetAllSkus(bool trackChanges) =>
+            FindAll(trackChanges).OrderBy(c => c.Name).ToList();
     }
 }

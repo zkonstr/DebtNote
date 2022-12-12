@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Repository
 {
@@ -14,5 +15,7 @@ namespace Repository
         : base(repositoryContext)
         {
         }
+        public IEnumerable<Payment> GetAllPayments(bool trackChanges) => 
+            FindAll(trackChanges).OrderBy(c => c.Id).ToList();
     }
 }
