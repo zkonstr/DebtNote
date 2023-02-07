@@ -20,7 +20,7 @@ namespace Presentation.Controllers
             var payments = _service.PaymentService.GetAllPayments(trackChanges: false);
             return Ok(payments);
         }
-        [HttpGet("{id:guid}")]
+        [HttpGet("{id:guid}", Name = "PaymentById")]
         public IActionResult GetPayment(Guid id)
         {
             var payment = _service.PaymentService.GetPayment(id, trackChanges: false);

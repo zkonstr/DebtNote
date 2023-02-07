@@ -14,6 +14,7 @@ namespace DebtNote
             CreateMap<Sku, SkuDTO>();
             CreateMap<Payment, PaymentDTO>();
             CreateMap<PaymentItem, PaymentItemDTO>();
+            CreateMap<UserForCreationDTO, User>();
         }
     }
 }

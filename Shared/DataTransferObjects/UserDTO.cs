@@ -6,5 +6,13 @@ using System.Threading.Tasks;
 
 namespace Shared.DataTransferObjects
 {
-    public record UserDTO(Guid Id, string Name, string Email, decimal Balance, string? Address, DateTime? Birthday);
+    public record UserDTO()
+    {
+        public Guid Id { get; init; }
+        public string Name { get; init; }
+        public string Email { get; init; }
+        public decimal Balance { get; init; }
+        public string? Address { get; init; }
+        public DateTime? Birthday { get; init; }
+    }
 }

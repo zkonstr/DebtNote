@@ -20,7 +20,7 @@ namespace Presentation.Controllers
             var skus = _service.SkuService.GetAllSkus(trackChanges: false);
             return Ok(skus);
         }
-        [HttpGet("{id:guid}")]
+        [HttpGet("{id:guid}", Name = "SkuById")]
         public IActionResult GetSku(Guid id)
         {
             var sku = _service.SkuService.GetSku(id, trackChanges: false);
