@@ -9,7 +9,9 @@ namespace Service.Contracts
 {
     public interface IUserItemReferenceService
     {
-        IEnumerable<UserItemReferenceDTO> GetAllUserItemReferences(bool trackChanges);
-        UserItemReferenceDTO GetUserItemReference(Guid Id, bool trackChanges);
+        IEnumerable<UserItemReferenceDTO> GetAllUserItemReferences
+            (Guid paymentId, Guid skuId, Guid commiterId, Guid recepientId, Guid paymentItemId, bool trackChanges);
+        UserItemReferenceDTO GetUserItemReference
+            (Guid paymentId, Guid skuId, Guid commiterId, Guid recepientId, Guid paymentItemId, Guid Id, bool trackChanges);
     }
 }

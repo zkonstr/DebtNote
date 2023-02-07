@@ -20,7 +20,7 @@ namespace Presentation.Controllers
              var users = _service.UserService.GetAllUsers(trackChanges: false);
             return Ok(users);
         }
-        [HttpGet("{id:guid}")]
+        [HttpGet("{id:guid}", Name = "UserById")]
         public IActionResult GetUser(Guid id)
         {
             var user = _service.UserService.GetUser(id, trackChanges: false);

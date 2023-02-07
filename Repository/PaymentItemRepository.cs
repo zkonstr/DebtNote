@@ -17,9 +17,17 @@ namespace Repository
         }
         public IEnumerable<PaymentItem> GetAllPaymentItems(bool trackChanges) =>
             FindAll(trackChanges).OrderBy(c => c.Id).ToList();
+        public IEnumerable<PaymentItem> GetAllPaymentItems
+            (Guid paymentId, Guid skuId, bool trackChanges) =>
+            FindByCondition(e => e.PaymentId.Equals(paymentId) &&
+            e.SkuId.Equals(skuId)
+            , trackChanges)
+            .OrderBy(e => e.PaymentId).ToList();
 
-        public PaymentItem GetPaymentItem(Guid Id, bool trackChanges) =>
-            FindByCondition(c => c.Id.Equals(Id), trackChanges)
+        public PaymentItem GetPaymentItem(Guid paymentId, Guid skuId, Guid Id, bool trackChanges) =>
+            FindByCondition(e => e.PaymentId.Equals(paymentId) &&
+            e.SkuId.Equals(skuId)
+            , trackChanges)
                 .SingleOrDefault();
     }
 }

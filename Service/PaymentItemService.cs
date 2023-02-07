@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-    internal sealed class PaymentItemService :IPaymentItemService
+    internal sealed class PaymentItemService : IPaymentItemService
     {
         private readonly IRepositoryManager _repository;
         private readonly ILoggerManager _logger;
@@ -25,21 +25,33 @@ namespace Service
             _mapper = mapper;
         }
 
-        public IEnumerable<PaymentItemDTO> GetAllPaymentItems(bool trackChanges)
+        public IEnumerable<PaymentItemDTO> GetAllPaymentItems(Guid paymentId, Guid skuId, bool trackChanges)
         {
-            
-            var paymentItems = _repository.PaymentItem.GetAllPaymentItems(trackChanges);
-            var paymentItemsDto = _mapper.Map<IEnumerable<PaymentItemDTO>>(paymentItems);
+            var payment = _repository.Payment.GetPayment(paymentId, trackChanges);
+            if (payment is null)
+                throw new PaymentNotFoundException(paymentId);
+            var sku = _repository.Sku.GetSku(skuId, trackChanges);
+            if (sku is null)
+                throw new SkuNotFoundException(skuId);
+            var paymentItemsFromDb = _repository.PaymentItem.GetAllPaymentItems(paymentId, skuId, trackChanges);
+
+            var paymentItemsDto = _mapper.Map<IEnumerable<PaymentItemDTO>>(paymentItemsFromDb);
             return paymentItemsDto;
-            
+
         }
 
-        public PaymentItemDTO GetPaymentItem(Guid id, bool trackChanges)
+        public PaymentItemDTO GetPaymentItem(Guid paymentId, Guid skuId, Guid id, bool trackChanges)
         {
-            var paymentItem = _repository.PaymentItem.GetPaymentItem(id, trackChanges);
-            if (paymentItem is null)
+            var payment = _repository.Payment.GetPayment(paymentId, trackChanges);
+            if (payment is null)
+                throw new PaymentNotFoundException(paymentId);
+            var sku = _repository.Sku.GetSku(skuId, trackChanges);
+            if (sku is null)
+                throw new SkuNotFoundException(skuId);
+            var paymentItemDb = _repository.PaymentItem.GetPaymentItem(paymentId, skuId, id, trackChanges);
+            if (paymentItemDb is null)
                 throw new PaymentItemNotFoundException(id);
-            var paymentItemDto = _mapper.Map<PaymentItemDTO>(paymentItem);
+            var paymentItemDto = _mapper.Map<PaymentItemDTO>(paymentItemDb);
             return paymentItemDto;
         }
     }

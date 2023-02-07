@@ -6,6 +6,7 @@ using Service.Contracts;
 using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,19 +26,43 @@ namespace Service
             _mapper = mapper;
         }
 
-        public IEnumerable<UserItemReferenceDTO> GetAllUserItemReferences(bool trackChanges)
+        public IEnumerable<UserItemReferenceDTO> GetAllUserItemReferences
+            (Guid paymentId, Guid skuId, Guid commiterId, Guid recepientId, Guid paymentItemId, bool trackChanges)
         {
-            var userItemReferences = _repository.UserItemReference.GetAllUserItemReferences(trackChanges);
-            var userItemReferencesDto = _mapper.Map<IEnumerable<UserItemReferenceDTO>>(userItemReferences);
+            var commiter = _repository.User.GetUser(commiterId, trackChanges);
+            if (commiter is null)
+                throw new UserNotFoundException(commiterId);
+            var recepient = _repository.User.GetUser(recepientId, trackChanges);
+            if (recepient is null)
+                throw new UserNotFoundException(recepientId);
+            var paymentItem = _repository.PaymentItem.GetPaymentItem(paymentId,skuId,paymentItemId, trackChanges);
+            if (paymentItem is null)
+                throw new PaymentItemNotFoundException(paymentItemId);
+            
+            var userItemReferencesFromDb = _repository.UserItemReference.GetAllUserItemReferences
+                (commiterId,recepientId,paymentItemId,trackChanges);
+            
+            var userItemReferencesDto = _mapper.Map<IEnumerable<UserItemReferenceDTO>>(userItemReferencesFromDb);
             return userItemReferencesDto;
         }
 
-        public UserItemReferenceDTO GetUserItemReference(Guid id, bool trackChanges)
+        public UserItemReferenceDTO GetUserItemReference
+            (Guid paymentId, Guid skuId, Guid commiterId, Guid recepientId, Guid paymentItemId, Guid id, bool trackChanges)
         {
-            var userItemReference = _repository.UserItemReference.GetUserItemReference(id, trackChanges);
-            if (userItemReference is null)
+            var commiter = _repository.User.GetUser(commiterId, trackChanges);
+            if (commiter is null)
+                throw new UserNotFoundException(commiterId);
+            var recepient = _repository.User.GetUser(recepientId, trackChanges);
+            if (recepient is null)
+                throw new UserNotFoundException(recepientId);
+            var paymentItem = _repository.PaymentItem.GetPaymentItem(paymentId, skuId, paymentItemId, trackChanges);
+            if (paymentItem is null)
+                throw new PaymentItemNotFoundException(paymentItemId);
+            var userItemReferenceDb = _repository.UserItemReference.GetUserItemReference
+                (commiterId, recepientId, paymentItemId, id, trackChanges);
+            if (userItemReferenceDb is null)
                 throw new UserItemReferenceNotFoundException(id);
-            var userItemReferenceDto = _mapper.Map<UserItemReferenceDTO>(userItemReference);
+            var userItemReferenceDto = _mapper.Map<UserItemReferenceDTO>(userItemReferenceDb);
             return userItemReferenceDto;
         }
     }

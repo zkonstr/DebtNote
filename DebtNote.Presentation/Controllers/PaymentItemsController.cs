@@ -15,15 +15,15 @@ namespace Presentation.Controllers
         private readonly IServiceManager _service;
         public PaymentItemsController(IServiceManager service) => _service = service;
         [HttpGet]
-        public IActionResult GetPayments()
+        public IActionResult GetPaymentItems(Guid paymentId, Guid skuId)
         {
-            var payments = _service.PaymentItemService.GetAllPaymentItems(trackChanges: false);
-            return Ok(payments);
+            var paymentItems = _service.PaymentItemService.GetAllPaymentItems(paymentId, skuId, trackChanges: false);
+            return Ok(paymentItems);
         }
         [HttpGet("{id:guid}")]
-        public IActionResult GetPaymentItem(Guid id)
+        public IActionResult GetPaymentItem(Guid paymentId, Guid skuId, Guid id)
         {
-            var paymentItem = _service.PaymentItemService.GetPaymentItem(id, trackChanges: false);
+            var paymentItem = _service.PaymentItemService.GetPaymentItem(paymentId, skuId, id, trackChanges: false);
             return Ok(paymentItem);
         }
     }
