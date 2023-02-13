@@ -14,6 +14,9 @@ namespace Repository
         : base(repositoryContext)
         {
         }
+
+        public void CreateSku(Sku sku) => Create(sku);
+
         public IEnumerable<Sku> GetAllSkus(bool trackChanges) =>
             FindAll(trackChanges).OrderBy(c => c.Name).ToList();
 

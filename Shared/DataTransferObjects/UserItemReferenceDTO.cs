@@ -6,5 +6,11 @@ using System.Threading.Tasks;
 
 namespace Shared.DataTransferObjects
 {
-    public record UserItemReferenceDTO(Guid Id, Guid PaymentItemId, Guid CommiterId, Guid RecepientId);
+    public record UserItemReferenceDTO
+    {
+        public Guid Id { get; init; }
+        public Guid PaymentItemId { get; init; }
+        public Guid CommiterId { get; init; }
+        public Guid RecepientId { get; init; }
+    }
 }

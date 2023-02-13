@@ -44,9 +44,9 @@ namespace Service
             return userDto;
         }
 
-        public UserDTO CreateUser(UserForCreationDTO User)
+        public UserDTO CreateUser(UserForCreationDTO user)
         {
-            var UserEntity = _mapper.Map<User>(User);
+            var UserEntity = _mapper.Map<User>(user);
             _repository.User.CreateUser(UserEntity);
             _repository.Save();
             var UserToReturn = _mapper.Map<UserDTO>(UserEntity);

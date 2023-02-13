@@ -10,6 +10,10 @@ namespace Service.Contracts
     public interface IPaymentItemService
     {
         IEnumerable<PaymentItemDTO> GetAllPaymentItems(Guid paymentId, Guid skuId, bool trackChanges);
+
         PaymentItemDTO GetPaymentItem(Guid paymentId, Guid skuId, Guid Id, bool trackChanges);
+
+        PaymentItemDTO CreatePaymentItem
+            (Guid paymentId, PaymentItemForCreationDTO paymentItem, bool trackChanges);
     }
 }

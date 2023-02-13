@@ -31,11 +31,11 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateUser([FromBody] UserForCreationDTO User)
+        public IActionResult CreateUser([FromBody] UserForCreationDTO user)
         {
-            if (User is null)
+            if (user is null)
                 return BadRequest("UserForCreationDto object is null");
-            var createdUser = _service.UserService.CreateUser(User);
+            var createdUser = _service.UserService.CreateUser(user);
             return CreatedAtRoute("UserById", new { id = createdUser.Id },
             createdUser);
         }

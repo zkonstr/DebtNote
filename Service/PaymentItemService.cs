@@ -6,6 +6,7 @@ using Service.Contracts;
 using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,23 @@ namespace Service
             _repository = repository;
             _logger = logger;
             _mapper = mapper;
+        }
+
+        public PaymentItemDTO CreatePaymentItem
+            (Guid paymentId, PaymentItemForCreationDTO paymentItem, bool trackChanges)
+        {
+            var skuId = paymentItem.SkuId;
+            var payment = _repository.Payment.GetPayment(paymentId, trackChanges);
+            if (payment is null)
+                throw new PaymentNotFoundException(paymentId);
+            var sku = _repository.Sku.GetSku(skuId, trackChanges);
+            if (sku is null)
+                throw new SkuNotFoundException(skuId);
+            var paymentItemEntity = _mapper.Map<PaymentItem>(paymentItem);
+            _repository.PaymentItem.CreateItemForPayment(paymentId, skuId, paymentItemEntity);
+            _repository.Save();
+            var paymentToReturn = _mapper.Map<PaymentItemDTO>(paymentItemEntity);
+            return paymentToReturn;
         }
 
         public IEnumerable<PaymentItemDTO> GetAllPaymentItems(Guid paymentId, Guid skuId, bool trackChanges)

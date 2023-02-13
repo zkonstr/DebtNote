@@ -11,7 +11,11 @@ namespace Contracts
     {
         IEnumerable<UserItemReference> GetAllUserItemReferences
             (Guid commiterId, Guid recepientId, Guid paymentItemId, bool trackChanges);
+
         UserItemReference GetUserItemReference
             (Guid commiterId, Guid recepientId, Guid paymentItemId, Guid Id, bool trackChanges);
+
+        void CreateUserItemReference
+            (Guid commiterId, Guid recepientId, Guid paymentItemId, UserItemReference userItemReference);
     }
 }

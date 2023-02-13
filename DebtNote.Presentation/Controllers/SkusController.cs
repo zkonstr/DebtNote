@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
+using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,16 @@ namespace Presentation.Controllers
         {
             var sku = _service.SkuService.GetSku(id, trackChanges: false);
             return Ok(sku);
+        }
+
+        [HttpPost]
+        public IActionResult CreateSku([FromBody] SkuForCreationDTO sku)
+        {
+            if (sku is null)
+                return BadRequest("SkuForCreationDto object is null");
+            var createdSku = _service.SkuService.CreateSku(sku);
+            return CreatedAtRoute("SkuById", new { id = createdSku.Id },
+            createdSku);
         }
     }
 }

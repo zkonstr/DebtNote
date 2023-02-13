@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
+using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,16 @@ namespace Presentation.Controllers
         {
             var payment = _service.PaymentService.GetPayment(id, trackChanges: false);
             return Ok(payment);
+        }
+
+        [HttpPost]
+        public IActionResult CreateSku([FromBody] PaymentForCreationDTO payment)
+        {
+            if (payment is null)
+                return BadRequest("PaymentForCreationDto object is null");
+            var createdSku = _service.PaymentService.CreatePayment(payment);
+            return CreatedAtRoute("PaymentById", new { id = createdSku.Id },
+            createdSku);
         }
     }
 }

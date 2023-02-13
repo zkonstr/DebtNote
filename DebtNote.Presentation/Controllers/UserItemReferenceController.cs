@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
+using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Presentation.Controllers
 {
@@ -22,13 +24,30 @@ namespace Presentation.Controllers
                 (paymentId, skuId, commiterId, recepientId, paymentItemId, trackChanges: false);
             return Ok(userItemReferences);
         }
-        [HttpGet("{id:guid}")]
+
+        [HttpGet("{id:guid}", Name = "GetUserItemReference")]
         public IActionResult GetUserItemReference
             (Guid paymentId, Guid skuId, Guid commiterId, Guid recepientId, Guid paymentItemId, Guid id)
         {
             var userItemReference = _service.UserItemReferenceService.GetUserItemReference
                 (paymentId, skuId, commiterId, recepientId, paymentItemId, id, trackChanges: false);
             return Ok(userItemReference);
+        }
+
+        [HttpPost]
+        public IActionResult CreateUserItemReference
+            (Guid commiterId, [FromBody] UserItemReferenceForCreationDTO userItemReference)
+        {
+            if (userItemReference is null)
+                return BadRequest("UserItemReferenceForCreationDto object is null");
+            var UserItemReferenceToReturn =
+            _service.UserItemReferenceService.CreateUserItemReference(commiterId, userItemReference, trackChanges: false);
+            return CreatedAtRoute("GetUserItemReference", new{
+                commiterId, 
+                UserItemReferenceToReturn.RecepientId,
+                UserItemReferenceToReturn.PaymentItemId,
+                id = UserItemReferenceToReturn.Id },
+                UserItemReferenceToReturn);
         }
     }
 }

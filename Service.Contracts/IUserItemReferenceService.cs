@@ -13,5 +13,8 @@ namespace Service.Contracts
             (Guid paymentId, Guid skuId, Guid commiterId, Guid recepientId, Guid paymentItemId, bool trackChanges);
         UserItemReferenceDTO GetUserItemReference
             (Guid paymentId, Guid skuId, Guid commiterId, Guid recepientId, Guid paymentItemId, Guid Id, bool trackChanges);
+
+        UserItemReferenceDTO CreateUserItemReference
+            (Guid commiterId, UserItemReferenceForCreationDTO userItemReference, bool trackChanges);
     }
 }

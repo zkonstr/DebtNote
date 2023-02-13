@@ -15,6 +15,14 @@ namespace Repository
         : base(repositoryContext)
         {
         }
+
+        public void CreateItemForPayment(Guid paymentId, Guid skuId, PaymentItem paymentItem)
+        {
+            paymentItem.SkuId = skuId;
+            paymentItem.PaymentId = paymentId;
+            Create(paymentItem);
+        }
+
         public IEnumerable<PaymentItem> GetAllPaymentItems(bool trackChanges) =>
             FindAll(trackChanges).OrderBy(c => c.Id).ToList();
         public IEnumerable<PaymentItem> GetAllPaymentItems

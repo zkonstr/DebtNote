@@ -25,6 +25,15 @@ namespace Service
             _mapper = mapper;
         }
 
+        public PaymentDTO CreatePayment(PaymentForCreationDTO payment)
+        {
+            var PaymentEntity = _mapper.Map<Payment>(payment);
+            _repository.Payment.CreatePayment(PaymentEntity);
+            _repository.Save();
+            var PaymentToReturn = _mapper.Map<PaymentDTO>(PaymentEntity);
+            return PaymentToReturn;
+        }
+
         public IEnumerable<PaymentDTO> GetAllPayments(bool trackChanges)
         {
             var payments = _repository.Payment.GetAllPayments(trackChanges);

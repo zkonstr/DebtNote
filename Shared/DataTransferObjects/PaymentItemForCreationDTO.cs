@@ -6,8 +6,5 @@ using System.Threading.Tasks;
 
 namespace Shared.DataTransferObjects
 {
-    public record PaymentDTO
-    {
-        public Guid Id { get; init; }
-    }
+    public record PaymentItemForCreationDTO(Guid SkuId);
 }

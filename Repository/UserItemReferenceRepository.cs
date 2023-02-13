@@ -15,6 +15,16 @@ namespace Repository
         : base(repositoryContext)
         {
         }
+
+        public void CreateUserItemReference
+            (Guid commiterId, Guid recepientId, Guid paymentItemId, UserItemReference userItemReference)
+        {
+            userItemReference.CommiterId = commiterId;
+            userItemReference.RecepientId = recepientId;
+            userItemReference.PaymentItemId = paymentItemId;
+            Create(userItemReference);
+        }
+
         public IEnumerable<UserItemReference> GetAllUserItemReferences(bool trackChanges) =>
             FindAll(trackChanges).OrderBy(c => c.Id).ToList();
 

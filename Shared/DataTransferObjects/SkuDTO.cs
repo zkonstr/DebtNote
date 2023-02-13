@@ -6,5 +6,10 @@ using System.Threading.Tasks;
 
 namespace Shared.DataTransferObjects
 {
-    public record SkuDTO(Guid Id, string Name, decimal Cost);
+    public record SkuDTO()
+    {
+        public Guid Id { get; init; }
+        public string Name { get; init; }
+        public decimal Cost { get; init; }
+    }
 }

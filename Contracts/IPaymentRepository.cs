@@ -11,6 +11,9 @@ namespace Contracts
     public interface IPaymentRepository
     {
         IEnumerable<Payment> GetAllPayments(bool trackChanges);
+
         Payment GetPayment(Guid Id, bool trackChanges);
+
+        void CreatePayment (Payment payment);
     }
 }

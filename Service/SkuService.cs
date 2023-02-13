@@ -25,6 +25,15 @@ namespace Service
             _mapper = mapper;
         }
 
+        public SkuDTO CreateSku(SkuForCreationDTO sku)
+        {
+            var SkuEntity = _mapper.Map<Sku>(sku);
+            _repository.Sku.CreateSku(SkuEntity);
+            _repository.Save();
+            var SkuToReturn = _mapper.Map<SkuDTO>(SkuEntity);
+            return SkuToReturn;
+        }
+
         public IEnumerable<SkuDTO> GetAllSkus(bool trackChanges)
         {
             var skus = _repository.Sku.GetAllSkus(trackChanges);
