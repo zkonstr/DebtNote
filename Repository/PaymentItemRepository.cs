@@ -16,26 +16,22 @@ namespace Repository
         {
         }
 
-        public void CreateItemForPayment(Guid paymentId, Guid skuId, PaymentItem paymentItem)
+        public void CreateItemForPayment(Guid paymentId,Guid skuId, PaymentItem paymentItem)
         {
-            paymentItem.SkuId = skuId;
-            paymentItem.PaymentId = paymentId;
+            paymentItem.SkuId= skuId;
+            paymentItem.PaymentId = paymentId;           
             Create(paymentItem);
         }
 
         public IEnumerable<PaymentItem> GetAllPaymentItems(bool trackChanges) =>
             FindAll(trackChanges).OrderBy(c => c.Id).ToList();
         public IEnumerable<PaymentItem> GetAllPaymentItems
-            (Guid paymentId, Guid skuId, bool trackChanges) =>
-            FindByCondition(e => e.PaymentId.Equals(paymentId) &&
-            e.SkuId.Equals(skuId)
-            , trackChanges)
+            (Guid paymentId, bool trackChanges) =>
+            FindByCondition(e => e.PaymentId.Equals(paymentId), trackChanges)
             .OrderBy(e => e.PaymentId).ToList();
 
-        public PaymentItem GetPaymentItem(Guid paymentId, Guid skuId, Guid Id, bool trackChanges) =>
-            FindByCondition(e => e.PaymentId.Equals(paymentId) &&
-            e.SkuId.Equals(skuId)
-            , trackChanges)
+        public PaymentItem GetPaymentItem(Guid paymentId, Guid Id, bool trackChanges) =>
+            FindByCondition(e => e.PaymentId.Equals(paymentId), trackChanges)
                 .SingleOrDefault();
     }
 }

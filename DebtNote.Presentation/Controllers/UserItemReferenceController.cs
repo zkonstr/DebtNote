@@ -31,19 +31,19 @@ namespace Presentation.Controllers
 
         [HttpGet]
         public IActionResult GetUserItemReferences
-            (Guid paymentId, Guid skuId, Guid commiterId, Guid recepientId, Guid paymentItemId)
+            (Guid commiterId)
         {
             var userItemReferences = _service.UserItemReferenceService.GetAllUserItemReferences
-                (paymentId, skuId, commiterId, recepientId, paymentItemId, trackChanges: false);
+                (commiterId, trackChanges: false);
             return Ok(userItemReferences);
         }
 
         [HttpGet("{id:guid}", Name = "GetUserItemReference")]
         public IActionResult GetUserItemReference
-            (Guid paymentId, Guid skuId, Guid commiterId, Guid recepientId, Guid paymentItemId, Guid id)
+            (Guid commiterId, Guid id)
         {
             var userItemReference = _service.UserItemReferenceService.GetUserItemReference
-                (paymentId, skuId, commiterId, recepientId, paymentItemId, id, trackChanges: false);
+                (commiterId, id, trackChanges: false);
             return Ok(userItemReference);
         }
 
@@ -55,12 +55,21 @@ namespace Presentation.Controllers
                 return BadRequest("UserItemReferenceForCreationDto object is null");
             var UserItemReferenceToReturn =
             _service.UserItemReferenceService.CreateUserItemReference(commiterId, userItemReference, trackChanges: false);
-            return CreatedAtRoute("GetUserItemReference", new{
-                commiterId, 
+            return CreatedAtRoute("GetUserItemReference", new
+            {
+                commiterId,
                 UserItemReferenceToReturn.RecepientId,
                 UserItemReferenceToReturn.PaymentItemId,
-                id = UserItemReferenceToReturn.Id },
+                id = UserItemReferenceToReturn.Id
+            },
                 UserItemReferenceToReturn);
+        }
+
+        [HttpDelete("{id:guid}")]
+        public IActionResult DeleteUserItemReference(Guid commiterId, Guid id)
+        {
+            _service.UserItemReferenceService.DeleteUserItemReference(commiterId, id, trackChanges: false);
+            return NoContent();
         }
     }
 }

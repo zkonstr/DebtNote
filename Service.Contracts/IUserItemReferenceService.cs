@@ -10,11 +10,15 @@ namespace Service.Contracts
     public interface IUserItemReferenceService
     {
         IEnumerable<UserItemReferenceDTO> GetAllUserItemReferences
-            (Guid paymentId, Guid skuId, Guid commiterId, Guid recepientId, Guid paymentItemId, bool trackChanges);
+            (Guid commiterId, bool trackChanges);
         UserItemReferenceDTO GetUserItemReference
-            (Guid paymentId, Guid skuId, Guid commiterId, Guid recepientId, Guid paymentItemId, Guid Id, bool trackChanges);
+            (Guid commiterId,Guid Id, bool trackChanges);
+        UserItemReferenceDTO GetItemReference(Guid commiterId,Guid id,bool trackChanges);
 
         UserItemReferenceDTO CreateUserItemReference
             (Guid commiterId, UserItemReferenceForCreationDTO userItemReference, bool trackChanges);
+
+        void DeleteUserItemReference
+            (Guid commiterId, Guid Id, bool trackChanges);
     }
 }

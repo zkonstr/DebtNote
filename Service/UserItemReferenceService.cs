@@ -39,9 +39,6 @@ namespace Service
                 throw new UserNotFoundException(recepientId);
 
             var paymentItemId = userItemReference.PaymentItemId;
-            //var paymentItem = _repository.PaymentItem.GetPaymentItem(paymentId, skuId, paymentItemId, trackChanges);
-            //if (paymentItem is null)
-            //    throw new PaymentItemNotFoundException(paymentItemId);
 
             var userItemReferenceEntity = _mapper.Map<UserItemReference>(userItemReference);
             _repository.UserItemReference.CreateUserItemReference
@@ -51,42 +48,61 @@ namespace Service
             return userItemReferenceToReturn;
         }
 
+        public void DeleteUserItemReference
+            (Guid commiterId, Guid id, bool trackChanges)
+        {
+            var user = _repository.User.GetUser(commiterId, trackChanges);
+            if (user is null)
+                throw new UserNotFoundException(commiterId);
+
+            var userItemReference = _repository.UserItemReference.
+                GetUserItemReference(commiterId, id, trackChanges);
+            if (userItemReference is null)
+                throw new UserItemReferenceNotFoundException(id);
+
+            _repository.UserItemReference.DeleteUserItemReference
+                (userItemReference);
+            _repository.Save();
+        }
+
         public IEnumerable<UserItemReferenceDTO> GetAllUserItemReferences
-            (Guid paymentId, Guid skuId, Guid commiterId, Guid recepientId, Guid paymentItemId, bool trackChanges)
+            (Guid commiterId, bool trackChanges)
         {
             var commiter = _repository.User.GetUser(commiterId, trackChanges);
             if (commiter is null)
                 throw new UserNotFoundException(commiterId);
-            var recepient = _repository.User.GetUser(recepientId, trackChanges);
-            if (recepient is null)
-                throw new UserNotFoundException(recepientId);
-            var paymentItem = _repository.PaymentItem.GetPaymentItem(paymentId, skuId, paymentItemId, trackChanges);
-            if (paymentItem is null)
-                throw new PaymentItemNotFoundException(paymentItemId);
 
             var userItemReferencesFromDb = _repository.UserItemReference.GetAllUserItemReferences
-                (commiterId, recepientId, paymentItemId, trackChanges);
+                (commiterId, trackChanges);
 
             var userItemReferencesDto = _mapper.Map<IEnumerable<UserItemReferenceDTO>>(userItemReferencesFromDb);
             return userItemReferencesDto;
         }
 
-        public UserItemReferenceDTO GetUserItemReference
-            (Guid paymentId, Guid skuId, Guid commiterId, Guid recepientId, Guid paymentItemId, Guid id, bool trackChanges)
+        public UserItemReferenceDTO GetItemReference(Guid commiterId, Guid id, bool trackChanges)
         {
+            var userItemReferenceDb = _repository.UserItemReference.GetUserItemReference
+                (commiterId, id, trackChanges);
+            if (userItemReferenceDb is null)
+                throw new UserItemReferenceNotFoundException(id);
+            var userItemReferenceDto = _mapper.Map<UserItemReferenceDTO>(userItemReferenceDb);
+            return userItemReferenceDto;
+        }
+
+        public UserItemReferenceDTO GetUserItemReference
+            (Guid commiterId, Guid id, bool trackChanges)
+        {
+            var userItemReferenceDb = _repository.UserItemReference.GetUserItemReference
+                (commiterId, id, trackChanges);
+            if (userItemReferenceDb is null)
+                throw new UserItemReferenceNotFoundException(id);
             var commiter = _repository.User.GetUser(commiterId, trackChanges);
             if (commiter is null)
                 throw new UserNotFoundException(commiterId);
+            var recepientId = userItemReferenceDb.RecepientId;
             var recepient = _repository.User.GetUser(recepientId, trackChanges);
             if (recepient is null)
                 throw new UserNotFoundException(recepientId);
-            var paymentItem = _repository.PaymentItem.GetPaymentItem(paymentId, skuId, paymentItemId, trackChanges);
-            if (paymentItem is null)
-                throw new PaymentItemNotFoundException(paymentItemId);
-            var userItemReferenceDb = _repository.UserItemReference.GetUserItemReference
-                (commiterId, recepientId, paymentItemId, id, trackChanges);
-            if (userItemReferenceDb is null)
-                throw new UserItemReferenceNotFoundException(id);
             var userItemReferenceDto = _mapper.Map<UserItemReferenceDTO>(userItemReferenceDb);
             return userItemReferenceDto;
         }

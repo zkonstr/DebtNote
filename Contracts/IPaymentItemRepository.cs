@@ -9,9 +9,9 @@ namespace Contracts
 {
     public interface IPaymentItemRepository
     {
-        IEnumerable<PaymentItem> GetAllPaymentItems(Guid paymentId, Guid skuId, bool trackChanges);
+        IEnumerable<PaymentItem> GetAllPaymentItems(Guid paymentId, bool trackChanges);
         
-        PaymentItem GetPaymentItem(Guid paymentId, Guid skuId, Guid Id, bool trackChanges);
+        PaymentItem GetPaymentItem(Guid paymentId, Guid Id, bool trackChanges);
 
         void CreateItemForPayment(Guid paymentId,Guid skuId, PaymentItem paymentItem);
     }
