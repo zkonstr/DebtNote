@@ -17,5 +17,7 @@ namespace Contracts
 
         void CreateUserItemReference
             (Guid commiterId, Guid recepientId, Guid paymentItemId, UserItemReference userItemReference);
+    
+        void DeleteUserItemReference(UserItemReference userItemReference);
     }
 }

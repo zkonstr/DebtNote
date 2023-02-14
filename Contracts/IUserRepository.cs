@@ -11,6 +11,7 @@ namespace Contracts
     public interface IUserRepository
     {
         IEnumerable<User> GetAllUsers(bool trackChanges);
+        IEnumerable<User> GetByIds(IEnumerable<Guid> ids, bool trackChanges);
         User GetUser(Guid Id, bool trackChanges);
         void CreateUser(User user);
     }

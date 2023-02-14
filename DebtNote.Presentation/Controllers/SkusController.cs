@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Contracts;
+using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
 using System;
@@ -14,7 +16,18 @@ namespace Presentation.Controllers
     public class SkusController : ControllerBase
     {
         private readonly IServiceManager _service;
-        public SkusController(IServiceManager service) => _service = service;
+        private readonly IRepositoryManager _repository;
+        private readonly ILoggerManager _logger;
+        private readonly IMapper _mapper;
+        public SkusController
+            (IRepositoryManager repository, IServiceManager service, ILoggerManager logger, IMapper mapper)
+        {
+            _repository = repository;
+            _service = service;
+            _logger = logger;
+            _mapper = mapper;
+        }
+
         [HttpGet]
         public IActionResult GetSkus()
         {

@@ -8,5 +8,6 @@ namespace Shared.DataTransferObjects
 {
     public record PaymentForCreationDTO
     {
+        public IEnumerable<PaymentItemForCreationDTO>? Items { get; set; }
     }
 }
