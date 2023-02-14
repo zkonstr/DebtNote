@@ -6,6 +6,7 @@ using Service.Contracts;
 using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -53,5 +54,13 @@ namespace Service
             return UserToReturn;
         }
 
+        public void DeleteUser(Guid userId,bool trackChanges)
+        {
+            var user = _repository.User.GetUser(userId, trackChanges);
+            if (user is null)
+                throw new UserNotFoundException(userId);
+            _repository.User.DeleteUser(user);
+            _repository.Save();
+        }
     }
 }

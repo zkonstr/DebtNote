@@ -15,5 +15,9 @@ namespace Service.Contracts
 
         UserDTO CreateUser(UserForCreationDTO user);
 
+        //UserDTO UpdateUser();
+
+        void DeleteUser(Guid userId,bool trackChanges);
+
     }
 }

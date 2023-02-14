@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contracts;
+using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
@@ -52,6 +53,13 @@ namespace Presentation.Controllers
             _service.PaymentItemService.CreatePaymentItem(paymentId, paymentItem, trackChanges: false);
             return CreatedAtRoute("GetItemForPayment", new
             { paymentId, ItemToReturn.SkuId, id = ItemToReturn.Id }, ItemToReturn);
+        }
+
+        [HttpDelete("{id:guid}")]
+        public IActionResult DeletePaymentItem(Guid paymentId,Guid paymentItemId)
+        {
+            _service.PaymentItemService.DeletePaymentItem(paymentId,paymentItemId, trackChanges: false);
+            return NoContent();
         }
 
     }

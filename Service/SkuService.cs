@@ -34,6 +34,15 @@ namespace Service
             return SkuToReturn;
         }
 
+        public void DeleteSku(Guid skuId, bool trackChanges)
+        {
+            var sku = _repository.Sku.GetSku(skuId, trackChanges);
+            if (sku is null)
+                throw new SkuNotFoundException(skuId);
+            _repository.Sku.DeleteSku(sku);
+            _repository.Save();
+        }
+
         public IEnumerable<SkuDTO> GetAllSkus(bool trackChanges)
         {
             var skus = _repository.Sku.GetAllSkus(trackChanges);

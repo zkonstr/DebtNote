@@ -37,10 +37,19 @@ namespace Service
             if (sku is null)
                 throw new SkuNotFoundException(skuId);
             var paymentItemEntity = _mapper.Map<PaymentItem>(paymentItem);
-            _repository.PaymentItem.CreateItemForPayment(paymentId,skuId, paymentItemEntity);
+            _repository.PaymentItem.CreateItemForPayment(paymentId, skuId, paymentItemEntity);
             _repository.Save();
             var paymentToReturn = _mapper.Map<PaymentItemDTO>(paymentItemEntity);
             return paymentToReturn;
+        }
+
+        public void DeletePaymentItem(Guid paymentId, Guid paymentItemId, bool trackChanges)
+        {
+            var paymentItem = _repository.PaymentItem.GetPaymentItem(paymentId, paymentItemId, trackChanges);
+            if (paymentItem is null)
+                throw new PaymentItemNotFoundException(paymentItemId);
+            _repository.PaymentItem.DeletePaymentItem(paymentItem);
+            _repository.Save();
         }
 
         public IEnumerable<PaymentItemDTO> GetAllPaymentItems(Guid paymentId, bool trackChanges)

@@ -18,6 +18,8 @@ namespace Repository
 
         public void CreatePayment(Payment payment) => Create(payment);
 
+        public void DeletePayment(Payment payment)=> Delete(payment);
+
         public IEnumerable<Payment> GetAllPayments(bool trackChanges) => 
             FindAll(trackChanges).OrderBy(c => c.Id).ToList();
 

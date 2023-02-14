@@ -93,5 +93,12 @@ namespace Presentation.Controllers
             createdUser);
         }
 
+        [HttpDelete("{id:guid}")]
+        public IActionResult DeleteUser(Guid userId)
+        {
+            _service.UserService.DeleteUser(userId, trackChanges: false);
+            return NoContent();
+        }
+
     }
 }

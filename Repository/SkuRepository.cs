@@ -17,6 +17,8 @@ namespace Repository
 
         public void CreateSku(Sku sku) => Create(sku);
 
+        public void DeleteSku(Sku sku)=> Delete(sku);
+
         public IEnumerable<Sku> GetAllSkus(bool trackChanges) =>
             FindAll(trackChanges).OrderBy(c => c.Name).ToList();
 

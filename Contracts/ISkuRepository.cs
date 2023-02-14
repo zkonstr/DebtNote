@@ -14,5 +14,7 @@ namespace Contracts
         Sku GetSku(Guid Id, bool trackChanges);
 
         void CreateSku(Sku sku);
+
+        void DeleteSku(Sku sku);
     }
 }

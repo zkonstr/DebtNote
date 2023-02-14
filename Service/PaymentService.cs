@@ -34,6 +34,15 @@ namespace Service
             return PaymentToReturn;
         }
 
+        public void DeletePayment(Guid paymentId, bool trackChanges)
+        {
+            var payment = _repository.Payment.GetPayment(paymentId, trackChanges);
+            if (payment is null)
+                throw new PaymentNotFoundException(paymentId);
+            _repository.Payment.DeletePayment(payment);
+            _repository.Save();
+        }
+
         public IEnumerable<PaymentDTO> GetAllPayments(bool trackChanges)
         {
             var payments = _repository.Payment.GetAllPayments(trackChanges);

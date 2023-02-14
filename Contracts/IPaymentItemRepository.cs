@@ -14,5 +14,7 @@ namespace Contracts
         PaymentItem GetPaymentItem(Guid paymentId, Guid Id, bool trackChanges);
 
         void CreateItemForPayment(Guid paymentId,Guid skuId, PaymentItem paymentItem);
+
+        void DeletePaymentItem(PaymentItem paymentItem);
     }
 }

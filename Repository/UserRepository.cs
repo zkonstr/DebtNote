@@ -26,6 +26,6 @@ namespace Repository
         public User GetUser(Guid Id, bool trackChanges) =>
             FindByCondition(c => c.Id.Equals(Id), trackChanges).SingleOrDefault();
 
-
+        public void DeleteUser(User user) => Delete(user);
     }
 }

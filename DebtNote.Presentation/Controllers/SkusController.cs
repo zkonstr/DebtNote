@@ -50,5 +50,12 @@ namespace Presentation.Controllers
             return CreatedAtRoute("SkuById", new { id = createdSku.Id },
             createdSku);
         }
+
+        [HttpDelete("{id:guid}")]
+        public IActionResult DeleteSku(Guid skuId)
+        {
+            _service.SkuService.DeleteSku(skuId, trackChanges: false);
+            return NoContent();
+        }
     }
 }

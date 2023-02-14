@@ -50,5 +50,12 @@ namespace Presentation.Controllers
             return CreatedAtRoute("PaymentById", new { id = createdSku.Id },
             createdSku);
         }
+
+        [HttpDelete("{id:guid}")]
+        public IActionResult DeletePayment(Guid paymentId)
+        {
+            _service.PaymentService.DeletePayment(paymentId, trackChanges: false);
+            return NoContent();
+        }
     }
 }

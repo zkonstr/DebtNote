@@ -14,5 +14,7 @@ namespace Contracts
         IEnumerable<User> GetByIds(IEnumerable<Guid> ids, bool trackChanges);
         User GetUser(Guid Id, bool trackChanges);
         void CreateUser(User user);
+        //void UpdateUser(User user);
+        void DeleteUser(User user);
     }
 }

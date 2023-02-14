@@ -15,5 +15,7 @@ namespace Contracts
         Payment GetPayment(Guid Id, bool trackChanges);
 
         void CreatePayment (Payment payment);
+
+        void DeletePayment(Payment payment);
     }
 }
