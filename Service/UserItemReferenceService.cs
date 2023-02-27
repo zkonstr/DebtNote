@@ -106,5 +106,20 @@ namespace Service
             var userItemReferenceDto = _mapper.Map<UserItemReferenceDTO>(userItemReferenceDb);
             return userItemReferenceDto;
         }
+
+        public void UpdateUserItemReference
+            (Guid commiterId, Guid id, UserItemReferenceForUpdateDTO userItemReference, 
+            bool userTrackChanges, bool userItemReferenceTrackChanges)
+        {
+            var user = _repository.User.GetUser(commiterId, userTrackChanges);
+            if(user is null)
+                throw new UserNotFoundException (commiterId);
+            var userItemReferenceEntity = _repository.UserItemReference.GetUserItemReference(
+                commiterId, id, userItemReferenceTrackChanges);
+            if (userItemReferenceEntity is null)
+                throw new UserItemReferenceNotFoundException(id);
+            _mapper.Map(userItemReference,userItemReferenceEntity);
+            _repository.Save();
+        }
     }
 }

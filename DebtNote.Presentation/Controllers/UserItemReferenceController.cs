@@ -71,5 +71,17 @@ namespace Presentation.Controllers
             _service.UserItemReferenceService.DeleteUserItemReference(commiterId, id, trackChanges: false);
             return NoContent();
         }
+
+        [HttpPut("{id:guid}")]
+        public IActionResult UpdateUserItemReference(Guid commiterId, Guid id,
+        [FromBody] UserItemReferenceForUpdateDTO userItemReference)
+        {
+            if (userItemReference is null)
+                return BadRequest("UserItemReferenceForUpdateDTO object is null");
+            _service.UserItemReferenceService.UpdateUserItemReference(commiterId, id, userItemReference,
+            userTrackChanges: false, userItemReferenceTrackChanges: true);
+            return NoContent();
+        }
+
     }
 }
