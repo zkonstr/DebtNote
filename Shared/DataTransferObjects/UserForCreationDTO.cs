@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shared.DataTransferObjects
 {
-    public record UserForCreationDTO(string Name, string Email, decimal Balance, string? Address, DateTime? Birthday)
+    public record UserForCreationDTO
     {
         public string Name { get; set; }
         public string Email { get; set; }

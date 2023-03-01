@@ -58,5 +58,14 @@ namespace Service
             var paymentDto = _mapper.Map<PaymentDTO>(payment);
             return paymentDto;
         }
+
+        public void UpdatePayment(Guid paymentId, PaymentForUpdateDTO payment, bool trackChanges)
+        {
+            var paymentEntity = _repository.Payment.GetPayment(paymentId, trackChanges);
+            if (paymentEntity is null)
+                throw new PaymentNotFoundException(paymentId);
+            _mapper.Map(payment, paymentEntity);
+            _repository.Save();
+        }
     }
 }

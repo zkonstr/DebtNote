@@ -15,6 +15,8 @@ namespace Service.Contracts
 
         SkuDTO CreateSku(SkuForCreationDTO sku);
 
+        void UpdateSku(Guid skuId,SkuForUpdateDTO sku,bool trackChanges);
+
         void DeleteSku(Guid skuId, bool trackChanges);
     }
 }

@@ -15,6 +15,8 @@ namespace Service.Contracts
 
         PaymentDTO CreatePayment(PaymentForCreationDTO payment);
 
+        void UpdatePayment(Guid paymentId,PaymentForUpdateDTO payment,bool trackChanges);
+
         void DeletePayment(Guid paymentId, bool trackChanges);
     }
 }

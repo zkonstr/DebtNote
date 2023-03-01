@@ -54,12 +54,21 @@ namespace Service
             return UserToReturn;
         }
 
-        public void DeleteUser(Guid userId,bool trackChanges)
+        public void DeleteUser(Guid id,bool trackChanges)
         {
-            var user = _repository.User.GetUser(userId, trackChanges);
+            var user = _repository.User.GetUser(id, trackChanges);
             if (user is null)
-                throw new UserNotFoundException(userId);
+                throw new UserNotFoundException(id);
             _repository.User.DeleteUser(user);
+            _repository.Save();
+        }
+
+        public void UpdateUser(Guid id, UserForUpdateDTO userForUpdate, bool trackChanges)
+        {
+            var userEntity = _repository.User.GetUser(id, trackChanges);
+            if (userEntity is null)
+                throw new UserNotFoundException(id);
+            _mapper.Map(userForUpdate, userEntity);
             _repository.Save();
         }
     }

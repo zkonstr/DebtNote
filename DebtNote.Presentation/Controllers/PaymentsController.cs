@@ -57,5 +57,14 @@ namespace Presentation.Controllers
             _service.PaymentService.DeletePayment(paymentId, trackChanges: false);
             return NoContent();
         }
+
+        [HttpPut("{id:guid}")]
+        public IActionResult UpdatePayment(Guid id, [FromBody] PaymentForUpdateDTO payment)
+        {
+            if (payment is null)
+                return BadRequest("PaymentForUpdateDto object is null");
+            _service.PaymentService.UpdatePayment(id, payment, trackChanges: true);
+            return NoContent();
+        }
     }
 }

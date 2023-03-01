@@ -57,5 +57,14 @@ namespace Presentation.Controllers
             _service.SkuService.DeleteSku(skuId, trackChanges: false);
             return NoContent();
         }
+
+        [HttpPut("{id:guid}")]
+        public IActionResult UpdateSku(Guid id, [FromBody] SkuForUpdateDTO sku)
+        {
+            if (sku is null)
+                return BadRequest("SkuForUpdateDto object is null");
+            _service.SkuService.UpdateSku(id, sku, trackChanges: true);
+            return NoContent();
+        }
     }
 }

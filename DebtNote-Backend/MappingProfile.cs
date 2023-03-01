@@ -14,12 +14,18 @@ namespace DebtNote
             CreateMap<Sku, SkuDTO>();
             CreateMap<Payment, PaymentDTO>();
             CreateMap<PaymentItem, PaymentItemDTO>();
+
             CreateMap<UserForCreationDTO, User>();
+            CreateMap<UserItemReferenceForCreationDTO, UserItemReference>();
             CreateMap<SkuForCreationDTO, Sku>();
             CreateMap<PaymentForCreationDTO, Payment>();
             CreateMap<PaymentItemForCreationDTO, PaymentItem>();
-            CreateMap<UserItemReferenceForCreationDTO, UserItemReference>();
+
+            CreateMap<UserForUpdateDTO, User>();
             CreateMap<UserItemReferenceForUpdateDTO, UserItemReference>();
+            CreateMap<SkuForUpdateDTO, Sku>();
+            CreateMap<PaymentForUpdateDTO, Payment>();
+            CreateMap<PaymentItemForUpdateDTO, PaymentItem>();
         }
     }
 }

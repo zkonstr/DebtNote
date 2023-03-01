@@ -62,5 +62,15 @@ namespace Presentation.Controllers
             return NoContent();
         }
 
+        [HttpPut("{id:guid}")]
+        public IActionResult UpdatePaymentItem(Guid paymentId, Guid id,
+        [FromBody] PaymentItemForUpdateDTO paymentItem)
+        {
+            if (paymentItem is null)
+                return BadRequest("PaymentItemForUpdateDTO object is null");
+            _service.PaymentItemService.UpdatePaymentItem(paymentId, id, paymentItem,
+            paymentTrackChanges: false, paymentItemTrackChanges: true);
+            return NoContent();
+        }
     }
 }

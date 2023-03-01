@@ -57,5 +57,14 @@ namespace Service
             var skuDto = _mapper.Map<SkuDTO>(sku);
             return skuDto;
         }
+
+        public void UpdateSku(Guid skuId, SkuForUpdateDTO sku, bool trackChanges)
+        {
+            var skuEntity = _repository.Sku.GetSku(skuId, trackChanges);
+            if (skuEntity is null)
+                throw new SkuNotFoundException(skuId);
+            _mapper.Map(sku, skuEntity);
+            _repository.Save();
+        }
     }
 }
