@@ -53,6 +53,8 @@ namespace Presentation.Controllers
         {
             if (userItemReference is null)
                 return BadRequest("UserItemReferenceForCreationDto object is null");
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
             var UserItemReferenceToReturn =
             _service.UserItemReferenceService.CreateUserItemReference(commiterId, userItemReference, trackChanges: false);
             return CreatedAtRoute("GetUserItemReference", new
@@ -78,6 +80,8 @@ namespace Presentation.Controllers
         {
             if (userItemReference is null)
                 return BadRequest("UserItemReferenceForUpdateDTO object is null");
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
             _service.UserItemReferenceService.UpdateUserItemReference(commiterId, id, userItemReference,
             userTrackChanges: false, userItemReferenceTrackChanges: true);
             return NoContent();

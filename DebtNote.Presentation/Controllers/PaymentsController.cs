@@ -46,6 +46,8 @@ namespace Presentation.Controllers
         {
             if (payment is null)
                 return BadRequest("PaymentForCreationDto object is null");
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
             var createdSku = _service.PaymentService.CreatePayment(payment);
             return CreatedAtRoute("PaymentById", new { id = createdSku.Id },
             createdSku);
@@ -63,6 +65,8 @@ namespace Presentation.Controllers
         {
             if (payment is null)
                 return BadRequest("PaymentForUpdateDto object is null");
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
             _service.PaymentService.UpdatePayment(id, payment, trackChanges: true);
             return NoContent();
         }

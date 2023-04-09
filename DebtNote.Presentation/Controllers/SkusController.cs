@@ -46,6 +46,8 @@ namespace Presentation.Controllers
         {
             if (sku is null)
                 return BadRequest("SkuForCreationDto object is null");
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
             var createdSku = _service.SkuService.CreateSku(sku);
             return CreatedAtRoute("SkuById", new { id = createdSku.Id },
             createdSku);
@@ -63,6 +65,8 @@ namespace Presentation.Controllers
         {
             if (sku is null)
                 return BadRequest("SkuForUpdateDto object is null");
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
             _service.SkuService.UpdateSku(id, sku, trackChanges: true);
             return NoContent();
         }

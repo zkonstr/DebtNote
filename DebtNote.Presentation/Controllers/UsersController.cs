@@ -88,6 +88,8 @@ namespace Presentation.Controllers
         {
             if (user is null)
                 return BadRequest("UserForCreationDto object is null");
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
             var createdUser = _service.UserService.CreateUser(user);
             return CreatedAtRoute("UserById", new { id = createdUser.Id },
             createdUser);
@@ -105,6 +107,8 @@ namespace Presentation.Controllers
         {
             if (user is null)
                 return BadRequest("UserForUpdateDto object is null");
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
             _service.UserService.UpdateUser(id, user, trackChanges: true);
             return NoContent();
         }
